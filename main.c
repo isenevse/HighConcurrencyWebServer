@@ -167,9 +167,8 @@ int main(int argc, char *argv[])
     //创建管道
     ret = socketpair(PF_UNIX, SOCK_STREAM, 0, pipefd);
     assert(ret != -1);
-    //设置管道写端为非阻塞，为什么写端要非阻塞？
-    setnonblocking(pipefd[1]);
     //设置管道读端为ET非阻塞
+    setnonblocking(pipefd[1]);
     addfd(epollfd, pipefd[0], false);
 
     //传递给主循环的信号值，这里只关注SIGALRM和SIGTERM
