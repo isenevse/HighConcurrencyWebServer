@@ -1,6 +1,6 @@
 Linux下C++高并发Web服务器，用于实践网络编程.
 
-* 使用**线程池 + epoll(ET和LT均实现) + 模拟Proactor模式**的并发模型
+* 使用**线程池 + epoll(ET和LT均实现) + Proactor模式**的并发模型
 * 使用**状态机**解析HTTP请求报文，支持解析**GET和POST**请求
 * 通过访问服务器数据库实现web端用户**注册、登录**功能，可以请求服务器**图片和视频文件**
 * 实现**同步/异步日志系统**，记录服务器运行状态
@@ -76,43 +76,43 @@ Linux下C++高并发Web服务器，用于实践网络编程.
 	* listenfd触发模式，关闭main.c中listenfdET，打开listenfdLT
 	    
 	    ```C++
-	    26 //#define listenfdET       //边缘触发非阻塞
-	    27 #define listenfdLT         //水平触发阻塞
+	    //#define listenfdET       //边缘触发非阻塞
+	    #define listenfdLT         //水平触发阻塞
 	    ```
 	* listenfd触发模式，关闭http_conn.cpp中listenfdET，打开listenfdLT
 	    
 	    ```C++
-	    10 //#define listenfdET       //边缘触发非阻塞
-	    11 #define listenfdLT         //水平触发阻塞
+	    //#define listenfdET       //边缘触发非阻塞
+	    #define listenfdLT         //水平触发阻塞
 	    ```
 
 	* connfd触发模式，关闭http_conn.cpp中connfdET，打开connfdLT
 	    
 	    ```C++
-	    7 //#define connfdET       //边缘触发非阻塞
-	    8 #define connfdLT         //水平触发阻塞
+	    //#define connfdET       //边缘触发非阻塞
+	    #define connfdLT         //水平触发阻塞
 	    ```
 
 - [ ] LT + ET模式
 	* listenfd触发模式，关闭main.c中listenfdET，打开listenfdLT
 	    
 	    ```C++
-	    26 //#define listenfdET       //边缘触发非阻塞
-	    27 #define listenfdLT         //水平触发阻塞
+	    //#define listenfdET       //边缘触发非阻塞
+	    #define listenfdLT         //水平触发阻塞
 	    ```
 	
 	* listenfd触发模式，关闭http_conn.cpp中listenfdET，打开listenfdLT
 	    
 	    ```C++
-	    10 //#define listenfdET       //边缘触发非阻塞
-	    11 #define listenfdLT         //水平触发阻塞
+	    //#define listenfdET       //边缘触发非阻塞
+	    #define listenfdLT         //水平触发阻塞
 	    ```
 
 	* connfd触发模式，打开http_conn.cpp中connfdET，关闭connfdLT
 	    
 	    ```C++
-	    7 #define connfdET       //边缘触发非阻塞
-	    8 //#define connfdLT         //水平触发阻塞
+	    #define connfdET       //边缘触发非阻塞
+	    //#define connfdLT         //水平触发阻塞
 	    ```
 
 > * 日志写入方式，代码中使用同步日志，可以修改为异步写入.
@@ -121,15 +121,15 @@ Linux下C++高并发Web服务器，用于实践网络编程.
 	* 关闭main.c中ASYNLOG，打开同步写入SYNLOG
 	    
 	    ```C++
-	    25 #define SYNLOG //同步写日志
-	    26 //#define ASYNLOG   /异步写日志
+	    #define SYNLOG //同步写日志
+	    //#define ASYNLOG   /异步写日志
 	    ```
 
 - [ ] 异步写入日志
 	* 关闭main.c中SYNLOG，打开异步写入ASYNLOG
 	    
 	    ```C++
-	    25 //#define SYNLOG //同步写日志
-	    26 #define ASYNLOG   /异步写日志
+	    //#define SYNLOG //同步写日志
+	    #define ASYNLOG   /异步写日志
 	    ```
 * 选择I/O复用方式或日志写入方式后，按照前述生成server，启动server，即可进行测试.
